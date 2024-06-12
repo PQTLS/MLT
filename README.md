@@ -16,12 +16,12 @@ PQ-TLS-Test is a project dedicated to testing post-quantum secure TLS handshakes
 ### Prerequisites
 
 #### System Requirements
-##### For Ubuntu 22.04.3 LTS System
+1. For Ubuntu 22.04.3 LTS System
 * Architecture: x86_64
 * RAM: 8GB
 * CPU: 16-core 11th Gen Intel(R) Core(TM) i7-11700 @ 2.50GHz
 * GCC Version: 11.4.0
-##### For Raspberry Pi 4 Model B
+2. For Raspberry Pi 4 Model B
 * Processor: 64-bit quad-core ARM Cortex-A72 @ 1.8 GHz
 * RAM: 4GB SDRAM
 * GCC Version: 10.2.1
