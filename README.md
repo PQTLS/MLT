@@ -8,9 +8,9 @@ PQ-TLS-Test is a project dedicated to testing post-quantum secure TLS handshakes
 **Network Topologies** : Creates multiple network namespaces to simulate different network configurations and topologies, i.e., ring, star and tree.
 
 ## Objectives
-(1) To assess the performance impact of different handshake modes in a post-quantum cryptography context.  
-(2) To understand how the number of clients affects server performance during PQC handshakes.  
-(3) To explore the influence of various network topologies on the efficiency of PQC handshakes.  
+* To assess the performance impact of different handshake modes in a post-quantum cryptography context.  
+* To understand how the number of clients affects server performance during PQC handshakes.  
+* To explore the influence of various network topologies on the efficiency of PQC handshakes.  
 
 ## Getting Started
 ### Prerequisites
