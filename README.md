@@ -14,9 +14,8 @@ PQ-TLS-Test is a project dedicated to testing post-quantum secure TLS handshakes
 
 ## Getting Started
 ### Prerequisites
-
-#### System Requirements
-1. For Ubuntu 22.04.3 LTS System
+1. For general-purpose system
+* Operating system: Ubuntu 22.04.3 LTS
 * Architecture: x86_64
 * RAM: 8GB
 * CPU: 16-core 11th Gen Intel(R) Core(TM) i7-11700 @ 2.50GHz
@@ -25,10 +24,6 @@ PQ-TLS-Test is a project dedicated to testing post-quantum secure TLS handshakes
 * Processor: 64-bit quad-core ARM Cortex-A72 @ 1.8 GHz
 * RAM: 4GB SDRAM
 * GCC Version: 10.2.1
-#### Software Requirements
+3. Software
 * OQS-OpenSSL: 1.1.1-stable
 * liboqs: 0.9.0
-(List software and hardware requirements)
-(Provide installation steps for dependencies)
-Installation
-Clone the repository:
