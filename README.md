@@ -1,8 +1,8 @@
 # PQ-TLS-TEST
-PQ-TLS-Test is a project dedicated to testing post-quantum TLS handshakes. The project aims to provide comprehensive insights into the performance of post-quantum cryptography (PQC) by evaluating various handshake modes, client scales, and network topologies.
+PQ-TLS-Test is a project dedicated to testing post-quantum TLS handshakes in PQ-only and PQ-hybrid schemes. The project aims to provide comprehensive insights into the performance of post-quantum cryptography (PQC) by evaluating various handshake modes, client scales, and network topologies.
 
 ## Key Features
-1. Handshake Modes : The framework supports testing of 1-RTT, PSK, and 0-RTT handshake modes, allowing for assessment of the performance impact of different handshake methods within a post-quantum cryptography context.
+1. Handshake Modes : The framework supports testing of 1-RTT, PSK, and 0-RTT handshake modes, allowing for assessment of the performance impact of different handshake methods with PQC.
 2. Client Scales : The framework evaluates server performance under varying client loads, providing insights into how the number of clients affects server performance during PQC handshakes
 3. Network Topologies : The framework creates multiple network namespaces to simulate different network configurations and topologies, such as ring, star and tree, enabling exploration of how various network topologies influence the efficiency of PQC handshakes.
 ## Getting Started
