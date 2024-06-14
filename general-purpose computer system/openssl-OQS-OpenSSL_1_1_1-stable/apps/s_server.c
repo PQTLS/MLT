@@ -21,7 +21,8 @@
 #include <openssl/e_os2.h>
 #include <openssl/async.h>
 #include <openssl/ssl.h>
-
+//begin
+#include<sys/time.h>
 #ifndef OPENSSL_NO_SOCK
 
 /*
@@ -2392,6 +2393,9 @@ static int sv_body(int s, int stype, int prot, unsigned char *context)
         SSL_set_tlsext_debug_callback(con, tlsext_cb);
         SSL_set_tlsext_debug_arg(con, bio_s_out);
     }
+    //begin
+  struct timeval time_now = {0};
+  long time_mic = 0;//1微秒 = 1毫秒/1000
 
     if (early_data) {
         int write_header = 1, edret = SSL_READ_EARLY_DATA_ERROR;
@@ -2418,12 +2422,19 @@ static int sv_body(int s, int stype, int prot, unsigned char *context)
             if (readbytes > 0) {
                 if (write_header) {
                     BIO_printf(bio_s_out, "Early data received:\n");
+                    //begin
+                    gettimeofday(&time_now,NULL);
+                    time_mic =  time_now.tv_sec*1000*1000+ time_now.tv_usec;
+                    printf("%ld\n",time_mic);
                     write_header = 0;
                 }
+                printf("%s",buf);
                 raw_write_stdout(buf, (unsigned int)readbytes);
                 (void)BIO_flush(bio_s_out);
             }
+
         }
+
         if (write_header) {
             if (SSL_get_early_data_status(con) == SSL_EARLY_DATA_NOT_SENT)
                 BIO_printf(bio_s_out, "No early data received\n");

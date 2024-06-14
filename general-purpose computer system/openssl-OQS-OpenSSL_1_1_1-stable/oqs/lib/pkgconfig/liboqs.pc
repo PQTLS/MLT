@@ -1,4 +1,4 @@
-prefix=/home/wsl/make/src/OQS/pq-tls-test/openssl-OQS-OpenSSL_1_1_1-stable/oqs
+prefix=/home/wsl/make/src/OQS/pq-tls-test/general-purpose computer system/openssl-OQS-OpenSSL_1_1_1-stable/oqs
 libdir=${prefix}/lib
 includedir=${prefix}/include
 
