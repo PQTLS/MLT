@@ -12,5 +12,5 @@ cd ..
 cd ..
 cd openssl-OQS-OpenSSL_1_1_1-stable
 chmod +x Configure
-./Configure no-shared linux-x86_64 -lm
-make -j 
+./Configure no-shared linux-aarch64 -lm
+make -j2

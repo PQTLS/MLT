@@ -1,8 +1,8 @@
 #!/bin/bash
-git add .
-git commit -m "Commit at $(date)"
-git push origin master
-#git remote remove origin
-#git remote add origin https://github.com/nogogame/pq-tls-test.git
-#git remote -v
-#git push -u origin master
+sudo git add .
+sudo git commit -m "Commit at $(date)"
+sudo git push origin master
+#sudo git remote remove origin
+#sudo git remote add origin https://github.com/nogogame/pq-tls-test.git
+#sudo git remote -v
+#sudo git push -u origin master
