@@ -23,7 +23,7 @@ PQ-TLS-Test is a project dedicated to testing post-quantum TLS handshakes in PQ-
 * liboqs: 0.9.0
 ### 2. Installation
 #### 2.1 Update and upgrade your system:
-```Bash
+```Shell
 sudo apt update
 sudo apt upgrade
 ```
@@ -32,8 +32,28 @@ sudo apt upgrade
 cd general-purpose_computer_system
 sudo ./ubunntu_setup.sh
 ```
-#### 23 Setting up on on a Raspberry Pi
+#### 2.3 Setting up on on a Raspberry Pi
 ```shell
 cd embedded_system
 sudo ./raspberry_setup.sh
+```
+### 3. Evaluation
+For General-Purpose Computer
+```shell
+cd general-purpose_computer_system
+```
+For Raspberry Pi
+```shell
+cd  embedded_system
+```
+#### 3.1 KEM and SA combination experiment
+
+```shell
+cd exp_1
+sudo ./setup_namespace.sh
+#For each KEM and SA modify the parameter in server.py and client.py respectively.
+sudo python server.py
+sudo python client.py
+#when finishing this experiment, delete namespaces.
+sudo ./delete_namespace.sh
 ```
