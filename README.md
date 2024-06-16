@@ -23,7 +23,7 @@ PQ-TLS-Test is a project dedicated to testing post-quantum TLS handshakes in PQ-
 * liboqs: 0.9.0
 ### 2. Installation
 #### 2.1 Update and upgrade your system:
-```Shell
+```Bash
 sudo apt update
 sudo apt upgrade
 ```
