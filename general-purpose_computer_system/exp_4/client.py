@@ -44,31 +44,31 @@ def netem_set(ns, dev,latency,loss):
     else:
         command = ['ip', 'netns', 'exec', ns, 'tc', 'qdisc', 'change', 'dev', dev, 'root', 'netem', 'limit', '1000', 'latency', latency, 'loss','{0}%'.format(loss),'rate', '1000mbit']
     run_subprocess(command)
-  
-Ke_alg = ['prime256v1','secp384r1','secp521r1','kyber512','sntrup761','kyber768','kyber1024','p256_kyber512','p256_sntrup761','p384_kyber768','p521_kyber1024']
-Lossrate = [0,3,5]
-Latency = ['7.75ms','14.75ms','33.75ms']
-count = 500
-for i in range(0,3):
-    latency_time = Latency[i]
-    loss_rate =  Lossrate[i]
-    current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-    folder_path = os.path.join("data", str(loss_rate))
-    os.makedirs(folder_path, exist_ok=True)
-    netem_set('client_namespace', 'client_veth', latency=latency_time,loss=loss_rate)
-    netem_set('server_namespace', 'server_veth', latency=latency_time,loss=loss_rate)   
-    for ke_alg in Ke_alg:
-        file_name = os.path.join(folder_path, '{}_earlydata_client.csv'.format(ke_alg))
-        with open(file_name, 'w') as out:
-            csv_out = csv.writer(out)
-            with open('earlydatafile.log','w') as file:
-                file.write("data"+"\n")
-                algo = "{}".format(ke_alg)
-                file.write(algo+"\n")
-                file.write(str(loss_rate)+"\n")
-                file.write("This is early data.")
-            handshake_times = [ke_alg]
-            handshake_time = run_client(ke_alg, count)
-            handshake_times.extend(handshake_time)
-            csv_out.writerow(handshake_times)
+if __name__ == "__main__":
+    Ke_alg = ['prime256v1','secp384r1','secp521r1','kyber512','sntrup761','kyber768','kyber1024','p256_kyber512','p256_sntrup761','p384_kyber768','p521_kyber1024']
+    Lossrate = [0,3,5]
+    Latency = ['7.75ms','14.75ms','33.75ms']
+    count = 500
+    for i in range(0,3):
+        latency_time = Latency[i]
+        loss_rate =  Lossrate[i]
+        current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+        folder_path = os.path.join("data", str(loss_rate))
+        os.makedirs(folder_path, exist_ok=True)
+        netem_set('client_namespace', 'client_veth', latency=latency_time,loss=loss_rate)
+        netem_set('server_namespace', 'server_veth', latency=latency_time,loss=loss_rate)   
+        for ke_alg in Ke_alg:
+            file_name = os.path.join(folder_path, '{}_earlydata_client.csv'.format(ke_alg))
+            with open(file_name, 'w') as out:
+                csv_out = csv.writer(out)
+                with open('earlydatafile.log','w') as file:
+                    file.write("data"+"\n")
+                    algo = "{}".format(ke_alg)
+                    file.write(algo+"\n")
+                    file.write(str(loss_rate)+"\n")
+                    file.write("This is early data.")
+                handshake_times = [ke_alg]
+                handshake_time = run_client(ke_alg, count)
+                handshake_times.extend(handshake_time)
+                csv_out.writerow(handshake_times)
 

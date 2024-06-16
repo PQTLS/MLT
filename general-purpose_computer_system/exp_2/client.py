@@ -55,28 +55,28 @@ combinations = {
     "p384_dilithium3":"p384_kyber768",
     "p521_dilithium5":"p521_kyber1024"
 }
+if __name__ == "__main__":
+    sig_alg="rsa:2048"
+    ke_alg = combinations[sig_alg]
+    Latency = ['7.75ms','14.75ms','33.75ms']
+    Lossrate    = [0,1,2,3,4,5]
+    count = 500
 
-sig_alg="rsa:2048"
-ke_alg = combinations[sig_alg]
-Latency = ['7.75ms','14.75ms','33.75ms']
-Lossrate    = [0,1,2,3,4,5]
-count = 500
+    current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    folder_path = os.path.join("data")
+    os.makedirs(folder_path, exist_ok=True)
 
-current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-folder_path = os.path.join("data")
-os.makedirs(folder_path, exist_ok=True)
-
-for latency_time in Latency:
-    netem_set('client_namespace', 'client_veth',  latency=latency_time,loss = 0)
-    netem_set('server_namespace', 'server_veth',  latency=latency_time,loss = 0)
-    rtt_str = rtt_time()
-    file_name = os.path.join(folder_path, '{}_{}ms_{}_full.csv'.format(ke_alg, rtt_str,sig_alg))
-    with open(file_name, 'w') as out:
-        csv_out = csv.writer(out)
-        for loss_rate in Lossrate:
-            netem_set('client_namespace', 'client_veth', latency=latency_time,loss=loss_rate)
-            netem_set('server_namespace', 'server_veth', latency=latency_time,loss=loss_rate)
-            handshake_times = [loss_rate]
-            handshake_time = run_client(ke_alg, count)
-            handshake_times.extend(handshake_time)
-            csv_out.writerow(handshake_times)
+    for latency_time in Latency:
+        netem_set('client_namespace', 'client_veth',  latency=latency_time,loss = 0)
+        netem_set('server_namespace', 'server_veth',  latency=latency_time,loss = 0)
+        rtt_str = rtt_time()
+        file_name = os.path.join(folder_path, '{}_{}ms_{}_full.csv'.format(ke_alg, rtt_str,sig_alg))
+        with open(file_name, 'w') as out:
+            csv_out = csv.writer(out)
+            for loss_rate in Lossrate:
+                netem_set('client_namespace', 'client_veth', latency=latency_time,loss=loss_rate)
+                netem_set('server_namespace', 'server_veth', latency=latency_time,loss=loss_rate)
+                handshake_times = [loss_rate]
+                handshake_time = run_client(ke_alg, count)
+                handshake_times.extend(handshake_time)
+                csv_out.writerow(handshake_times)

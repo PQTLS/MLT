@@ -40,29 +40,29 @@ def run_subprocess(command):
     except subprocess.CalledProcessError as e:
         logging.error("Command execution failed with return code %d: %s", e.returncode, e.stderr)
         raise
+if __name__ == "__main__":
+    Ke_alg = ['prime256v1','secp384r1','secp521r1','kyber512','sntrup761','kyber768','kyber1024','p256_kyber512','p256_sntrup761','p384_kyber768','p521_kyber1024']
+    Lossrate = [0,3,5]
+    Latency = ['7.75ms','14.75ms','33.75ms']
+    count = 5
 
-Ke_alg = ['prime256v1','secp384r1','secp521r1','kyber512','sntrup761','kyber768','kyber1024','p256_kyber512','p256_sntrup761','p384_kyber768','p521_kyber1024']
-Lossrate = [0,3,5]
-Latency = ['7.75ms','14.75ms','33.75ms']
-count = 5
-
-current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-folder_path = os.path.join("data")
-os.makedirs(folder_path, exist_ok=True)
-for i in range(0,3):
-    latency_time =Latency[i]
-    loss_rate=Lossrate[i]
-    netem_set('client_namespace', 'client_veth',  latency=latency_time,loss = 0)
-    netem_set('server_namespace', 'server_veth',  latency=latency_time,loss = 0)
-    rtt_str = rtt_time()
-    for ke_alg in Ke_alg:
-        file_name = os.path.join(folder_path, '{}_{}ms_psk.csv'.format(ke_alg, rtt_str))
-        with open(file_name, 'w') as out:
-            csv_out = csv.writer(out)
-            netem_set('client_namespace', 'client_veth', latency=latency_time,loss=loss_rate)
-            netem_set('server_namespace', 'server_veth', latency=latency_time,loss=loss_rate)
-            handshake_times = [loss_rate]
-            handshake_time = run_client(ke_alg,count)
-            handshake_times.extend(handshake_time)
-            csv_out.writerow(handshake_times)
+    current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    folder_path = os.path.join("data")
+    os.makedirs(folder_path, exist_ok=True)
+    for i in range(0,3):
+        latency_time =Latency[i]
+        loss_rate=Lossrate[i]
+        netem_set('client_namespace', 'client_veth',  latency=latency_time,loss = 0)
+        netem_set('server_namespace', 'server_veth',  latency=latency_time,loss = 0)
+        rtt_str = rtt_time()
+        for ke_alg in Ke_alg:
+            file_name = os.path.join(folder_path, '{}_{}ms_psk.csv'.format(ke_alg, rtt_str))
+            with open(file_name, 'w') as out:
+                csv_out = csv.writer(out)
+                netem_set('client_namespace', 'client_veth', latency=latency_time,loss=loss_rate)
+                netem_set('server_namespace', 'server_veth', latency=latency_time,loss=loss_rate)
+                handshake_times = [loss_rate]
+                handshake_time = run_client(ke_alg,count)
+                handshake_times.extend(handshake_time)
+                csv_out.writerow(handshake_times)
 

@@ -55,22 +55,24 @@ combinations = {
     "p521_dilithium5":"p521_kyber1024",
     "p521_falcon1024":"p521_kyber1024"
 }
-sig_alg="rsa:3072"
-ke_alg = combinations[sig_alg]
-Latency=['0ms','7.5ms']
-count = 500
-current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-folder_path = os.path.join("data")
-os.makedirs(folder_path, exist_ok=True)
 
-for latency_time in Latency:
-    netem_set('client_namespace', 'client_veth',  latency=latency_time)
-    netem_set('server_namespace', 'server_veth',  latency=latency_time)
-    rtt_str = rtt_time()
-    file_name = os.path.join(folder_path, '{}_{}ms_{}_full.csv'.format(ke_alg, rtt_str,sig_alg))
-    with open(file_name, 'w') as out:
-        csv_out = csv.writer(out)
-        netem_set('client_namespace', 'client_veth', latency=latency_time)
-        netem_set('server_namespace', 'server_veth', latency=latency_time)
-        handshake_time = run_client(ke_alg, count)
-        csv_out.writerow(handshake_time)
+if __name__ == "__main__":
+    sig_alg="rsa:3072"
+    ke_alg = combinations[sig_alg]
+    Latency=['0ms','7.5ms']
+    count = 500
+    current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    folder_path = os.path.join("data")
+    os.makedirs(folder_path, exist_ok=True)
+
+    for latency_time in Latency:
+        netem_set('client_namespace', 'client_veth',  latency=latency_time)
+        netem_set('server_namespace', 'server_veth',  latency=latency_time)
+        rtt_str = rtt_time()
+        file_name = os.path.join(folder_path, '{}_{}ms_{}_full.csv'.format(ke_alg, rtt_str,sig_alg))
+        with open(file_name, 'w') as out:
+            csv_out = csv.writer(out)
+            netem_set('client_namespace', 'client_veth', latency=latency_time)
+            netem_set('server_namespace', 'server_veth', latency=latency_time)
+            handshake_time = run_client(ke_alg, count)
+            csv_out.writerow(handshake_time)

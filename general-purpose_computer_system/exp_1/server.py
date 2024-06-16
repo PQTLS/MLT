@@ -15,5 +15,5 @@ def run_commands(signature=''):
             print(f"Error running command: {e}")
 
 if __name__ == "__main__":
-    signature = "rsa:3072"  # Replace with the desired signature algorithm in README.md
-    run_commands(signature)
+    sig_alg = "rsa:3072"  # Replace with the desired signature algorithm in README.md
+    run_commands(sig_alg)

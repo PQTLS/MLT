@@ -46,7 +46,6 @@ For Raspberry Pi
 ```shell
 cd  embedded_system
 ```
-
 Algorithms involved in this experiment:
 ```python
 #Signature algorithms to replace with:
@@ -114,6 +113,9 @@ sudo ./setup_namespace.sh
 #For selected KEM and SA, modify the parameter in server.py and client.py respectively.
 sudo python server.py
 sudo python client.py
+#when client.py finished, press ctrl+c in comdline running server.py
+sudo python extract.py
+sudo python earlydata.py
 #when finishing this experiment, delete namespaces.
 sudo ./delete_namespace.sh
 ```

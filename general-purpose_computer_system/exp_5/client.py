@@ -49,45 +49,45 @@ def run_handshake(num_processes,num_test, ke_alg):
         results = pool.starmap(run_command, zip(commands, tasks, iden))
     return results
 
+if __name__ == "__main__":
+    ke_alg = 'prime256v1'
+    Lossrate = [0,3,5]
+    Latency = ['7.75ms','14.75ms','33.75ms']
+    for k in range(0,3):
+        num_clients = multiprocessing.cpu_count()
+        count       = 1
+        for i in range(1,num_clients):
+            current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+            folder_path1 = os.path.join("data",ke_alg,'server1')
+            folder_path2 = os.path.join("data",ke_alg,'server2')
+            os.makedirs(folder_path1, exist_ok=True)
+            os.makedirs(folder_path2, exist_ok=True)
+            latency_time = Latency[k]
+            netem_set('client_namespace', 'client_veth1', 0, latency=latency_time)
+            netem_set('client_namespace', 'client_veth2', 0, latency=latency_time)
+            netem_set('server_namespace1', 'server_veth1', 0, latency=latency_time)
+            netem_set('server_namespace2', 'server_veth2', 0, latency=latency_time)
+            rtt_str = rtt_time()
 
-ke_alg = 'prime256v1'
-Lossrate = [0,3,5]
-Latency = ['7.75ms','14.75ms','33.75ms']
-for k in range(0,3):
-    num_clients = multiprocessing.cpu_count()
-    count       = 1
-    for i in range(1,num_clients):
-        current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-        folder_path1 = os.path.join("data",ke_alg,'server1')
-        folder_path2 = os.path.join("data",ke_alg,'server2')
-        os.makedirs(folder_path1, exist_ok=True)
-        os.makedirs(folder_path2, exist_ok=True)
-        latency_time = Latency[k]
-        netem_set('client_namespace', 'client_veth1', 0, latency=latency_time)
-        netem_set('client_namespace', 'client_veth2', 0, latency=latency_time)
-        netem_set('server_namespace1', 'server_veth1', 0, latency=latency_time)
-        netem_set('server_namespace2', 'server_veth2', 0, latency=latency_time)
-        rtt_str = rtt_time()
-
-        file_name1 = os.path.join(folder_path1, '{}_{}ms_{}.csv'.format(ke_alg, rtt_str,i))
-        file_name2 = os.path.join(folder_path2, '{}_{}ms_{}.csv'.format(ke_alg, rtt_str,num_clients-i))
-        with open(file_name1, 'w') as out1, open(file_name2, 'w') as out2 :
-            csv_out1 = csv.writer(out1)
-            csv_out2 = csv.writer(out2)
-            lossrate = Lossrate[k]
-            netem_set('client_namespace', 'client_veth1', lossrate, latency=latency_time)
-            netem_set('client_namespace', 'client_veth2', lossrate, latency=latency_time)
-            netem_set('server_namespace1', 'server_veth1', lossrate, latency=latency_time)
-            netem_set('server_namespace2', 'server_veth2', lossrate, latency=latency_time)
-            handshake_times1 = [lossrate]
-            handshake_times2 = [lossrate]
-            for j in range(count):
-                handshake_time = run_handshake(num_clients,i,ke_alg)
-                for sublist in handshake_time:
-                    handshake_time =sublist[1]
-                    if sublist[0] == 'server1':
-                        handshake_times1.append(handshake_time)
-                    elif sublist[0] == 'server2':
-                        handshake_times2.append(handshake_time)
-            csv_out1.writerow(handshake_times1)
-            csv_out2.writerow(handshake_times2)
+            file_name1 = os.path.join(folder_path1, '{}_{}ms_{}.csv'.format(ke_alg, rtt_str,i))
+            file_name2 = os.path.join(folder_path2, '{}_{}ms_{}.csv'.format(ke_alg, rtt_str,num_clients-i))
+            with open(file_name1, 'w') as out1, open(file_name2, 'w') as out2 :
+                csv_out1 = csv.writer(out1)
+                csv_out2 = csv.writer(out2)
+                lossrate = Lossrate[k]
+                netem_set('client_namespace', 'client_veth1', lossrate, latency=latency_time)
+                netem_set('client_namespace', 'client_veth2', lossrate, latency=latency_time)
+                netem_set('server_namespace1', 'server_veth1', lossrate, latency=latency_time)
+                netem_set('server_namespace2', 'server_veth2', lossrate, latency=latency_time)
+                handshake_times1 = [lossrate]
+                handshake_times2 = [lossrate]
+                for j in range(count):
+                    handshake_time = run_handshake(num_clients,i,ke_alg)
+                    for sublist in handshake_time:
+                        handshake_time =sublist[1]
+                        if sublist[0] == 'server1':
+                            handshake_times1.append(handshake_time)
+                        elif sublist[0] == 'server2':
+                            handshake_times2.append(handshake_time)
+                csv_out1.writerow(handshake_times1)
+                csv_out2.writerow(handshake_times2)
