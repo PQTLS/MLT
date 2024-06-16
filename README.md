@@ -21,3 +21,19 @@ PQ-TLS-Test is a project dedicated to testing post-quantum TLS handshakes in PQ-
 #### 1.3 Software Requriments
 * OQS-OpenSSL: 1.1.1-stable
 * liboqs: 0.9.0
+### 2. Installation
+#### 2.1 Update and upgrade your system:
+```Shell
+sudo apt update
+sudo apt upgrade
+```
+#### 2.2 Setting up on a General-Purpose Computer
+```shell
+cd general-purpose_computer_system
+sudo ./ubunntu_setup.sh
+```
+#### 23 Setting up on on a Raspberry Pi
+```shell
+cd embedded_system
+sudo ./raspberry_setup.sh
+```
