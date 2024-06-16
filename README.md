@@ -51,7 +51,92 @@ cd  embedded_system
 ```shell
 cd exp_1
 sudo ./setup_namespace.sh
-#For each KEM and SA modify the parameter in server.py and client.py respectively.
+#For each KEM and SA, modify the parameter in server.py and client.py respectively.
+sudo python server.py
+sudo python client.py
+#when finishing this experiment, delete namespaces.
+sudo ./delete_namespace.sh
+```
+
+#### 3.2 1-RTT experiment
+```shell
+cd exp_2
+sudo ./setup_namespace.sh
+#For selected KEM and SA, modify the parameter in server.py and client.py respectively.
+sudo python server.py
+sudo python client.py
+#when finishing this experiment, delete namespaces.
+sudo ./delete_namespace.sh
+```
+#### 3.3 PSK experiment
+```shell
+cd exp_3
+sudo ./setup_namespace.sh
+#For selected KEM and SA, modify the parameter in server.py and client.py respectively.
+sudo python server.py
+sudo python client.py
+#when finishing this experiment, delete namespaces.
+sudo ./delete_namespace.sh
+```
+
+#### 3.4 0-RTT experiment
+```shell
+cd exp_4
+sudo ./setup_namespace.sh
+#For selected KEM and SA, modify the parameter in server.py and client.py respectively.
+sudo python server.py
+sudo python client.py
+#when finishing this experiment, delete namespaces.
+sudo ./delete_namespace.sh
+```
+
+#### 3.5 client scale experiment
+```shell
+cd exp_5
+sudo ./setup_namespace.sh
+#For selected KEM and SA, modify the parameter in server.py and client.py respectively.
+sudo python server.py
+sudo python client.py
+#when finishing this experiment, delete namespaces.
+sudo ./delete_namespace.sh
+```
+
+#### 3.6 four nodes linear connection experiment
+```shell
+cd exp_6
+sudo ./setup_namespace.sh
+#For selected KEM and SA, modify the parameter in server.py and client.py respectively.
+sudo python server.py
+sudo python client.py
+#when finishing this experiment, delete namespaces.
+sudo ./delete_namespace.sh
+```
+#### 3.7 ring topology experiment
+```shell
+cd exp_7
+sudo ./setup_namespace.sh
+#For selected KEM and SA, modify the parameter in server.py and client.py respectively.
+sudo python server.py
+sudo python client.py
+#when finishing this experiment, delete namespaces.
+sudo ./delete_namespace.sh
+```
+
+#### 3.8 star topology experiment
+```shell
+cd exp_8
+sudo ./setup_namespace.sh
+#For selected KEM and SA, modify the parameter in server.py and client.py respectively.
+sudo python server.py
+sudo python client.py
+#when finishing this experiment, delete namespaces.
+sudo ./delete_namespace.sh
+```
+#### 3.9 tree topology experiment
+```shell
+cd exp_9
+sudo ./setup_namespace.sh
+#For selected KEM and SA, modify the parameter in server.py and client.py respectively.
 sudo python server.py
 sudo python client.py
 #when finishing this experiment, delete namespaces.
